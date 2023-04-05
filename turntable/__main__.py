@@ -14,7 +14,7 @@ MOTOR_STEPS = 200
 class Turntable:
     def __init__(self, shutter_pin, motor_steps):
         n_microsteps = 16
-        self.kit = MotorKit(steppers_microsteps=n_microsteps)
+        self.kit = MotorKit(steppers_microsteps=n_microsteps, pwm_frequency=2400.0)
         self.steps_per_rotation = n_microsteps * motor_steps
         self.shutter_pin = shutter_pin
 
@@ -38,6 +38,7 @@ class Turntable:
     def turn(self, angle):
         for _ in range(int(angle / 360.0 * self.steps_per_rotation)):
             self.kit.stepper1.onestep(style=stepper.MICROSTEP)
+        time.sleep(1)
 
 
 if __name__ == "__main__":
