@@ -38,7 +38,7 @@ class Turntable:
     def turn(self, angle):
         for _ in range(int(angle / 360.0 * self.steps_per_rotation)):
             self.kit.stepper1.onestep(style=stepper.MICROSTEP)
-        time.sleep(1)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
@@ -52,6 +52,7 @@ if __name__ == "__main__":
     with Turntable(SHUTTER_PIN, MOTOR_STEPS) as tt:
         total_angle = 0.0
         while total_angle < 360.0:
+            print(f'shutter at {total_angle} degrees')
             tt.shutter()
             time.sleep(delay)
             tt.turn(angle)
